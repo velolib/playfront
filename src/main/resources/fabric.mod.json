@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "playfront",
+	"version": "${version}",
+	"name": "playfront",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		{
+			"name": "velolib",
+			"contact": {
+				"email": "vlocitize@gmail.com",
+				"homepage": "https://velolib.dev"
+			}
+		}
+	],
+	"contact": {
+		"sources": "https://github.com/velolib/playfront",
+		"issues": "https://github.com/velolib/playfront/issues",
+		"homepage": "https://modrinth.com/mod/playfront"
+	},
+	"license": "GPL-3.0",
+	"icon": "assets/playfront/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"dev.velolib.playfront.PlayfrontClient"
+		],
+		"modmenu": [
+			"dev.velolib.playfront.integration.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"playfront.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"yet_another_config_lib_v3": ">=3.9.5+26.2-fabric",
+		"modmenu": ">=20.0.1"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.modrinth": "https://modrinth.com/mod/playfront",
+				"modmenu.github_releases": "https://github.com/velolib/playfront/releases",
+				"modmenu.issues": "https://github.com/velolib/playfront/issues"
+			}
+		}
+	}
+}
