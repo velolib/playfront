@@ -1,18 +1,14 @@
 package dev.velolib.playfront.media;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import dev.velolib.playfront.config.PlayfrontConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import dev.velolib.playfront.config.PlayfrontConfig;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -22,31 +18,18 @@ import java.util.concurrent.TimeUnit;
 
 public class MediaManager {
 
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static volatile String currentTitle = "No Media Playing";
     public static volatile String currentArtist = "";
     public static volatile float currentProgress = 0.0f;
-
     public static volatile double currentPosition = 0.0;
     public static volatile double currentDuration = 0.0;
     public static volatile boolean isPlaying = false;
     public static volatile String currentAppId = "default";
-
     public static volatile long lastPollTime = System.currentTimeMillis();
-
     public static Identifier currentCoverArt = null;
     private static DynamicTexture dynamicTexture = null;
-
-    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static File tempExe = null;
-
-    public static double getInterpolatedPosition() {
-        if (!isPlaying) {
-            return currentPosition;
-        }
-        double secondsSincePoll = (System.currentTimeMillis() - lastPollTime) / 1000.0;
-        double estimated = currentPosition + secondsSincePoll;
-        return (currentDuration > 0) ? Math.min(estimated, currentDuration) : estimated;
-    }
 
     public static String getCleanAppName(String appId) {
         if (appId == null || appId.isEmpty() || appId.equalsIgnoreCase("default")) {
@@ -69,11 +52,6 @@ public class MediaManager {
         return appId;
     }
 
-    public static float getInterpolatedProgress() {
-        if (currentDuration <= 0) return 0.0f;
-        return (float) Math.min(1.0, Math.max(0.0, getInterpolatedPosition() / currentDuration));
-    }
-
     public static void startPolling() {
         extractWindowsBridge();
 
@@ -84,22 +62,40 @@ public class MediaManager {
         }
 
         scheduler.scheduleAtFixedRate(() -> {
-            try { pollWindowsSMTC(); } catch (Exception e) { e.printStackTrace(); }
+            try {
+                pollWindowsSMTC();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }, 0, pollingRate, TimeUnit.MILLISECONDS);
     }
 
     public static void stopPolling() {
-        if (scheduler != null && !scheduler.isShutdown()) {
+        if (!scheduler.isShutdown()) {
             scheduler.shutdownNow();
         }
     }
 
 
-    public static void play() { sendCommandAsync("play"); }
-    public static void pause() { sendCommandAsync("pause"); }
-    public static void togglePlayPause() { sendCommandAsync("toggle"); }
-    public static void nextTrack() { sendCommandAsync("next"); }
-    public static void previousTrack() { sendCommandAsync("prev"); }
+    public static void play() {
+        sendCommandAsync("play");
+    }
+
+    public static void pause() {
+        sendCommandAsync("pause");
+    }
+
+    public static void togglePlayPause() {
+        sendCommandAsync("toggle");
+    }
+
+    public static void nextTrack() {
+        sendCommandAsync("next");
+    }
+
+    public static void previousTrack() {
+        sendCommandAsync("prev");
+    }
 
     public static void cyclePlayer() {
         if (tempExe == null || !tempExe.exists()) return;

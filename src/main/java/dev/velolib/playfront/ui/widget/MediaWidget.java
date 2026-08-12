@@ -2,15 +2,15 @@ package dev.velolib.playfront.ui.widget;
 
 import dev.velolib.playfront.config.PlayfrontConfig;
 import dev.velolib.playfront.media.MediaManager;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.NonNull;
 
@@ -120,7 +120,8 @@ public class MediaWidget extends AbstractWidget {
                         graphics.fill(x + currentWidth - 1, y, x + currentWidth, y + currentHeight, borderColorRgb);
                     }
                 }
-                case BUTTON -> renderSprite(graphics, Identifier.withDefaultNamespace("widget/button"), x, y, currentWidth, currentHeight);
+                case BUTTON ->
+                        renderSprite(graphics, Identifier.withDefaultNamespace("widget/button"), x, y, currentWidth, currentHeight);
                 case TOOLTIP -> {
                     int offset = 8;
                     renderSprite(graphics, Identifier.withDefaultNamespace("tooltip/background"), x - offset, y - offset, currentWidth + (offset * 2), currentHeight + (offset * 2));
@@ -225,9 +226,6 @@ public class MediaWidget extends AbstractWidget {
     }
 
     @Override
-    public void setFocused(boolean focused) {}
-
-    @Override
     protected void updateWidgetNarration(@NonNull NarrationElementOutput narrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput);
     }
@@ -235,5 +233,9 @@ public class MediaWidget extends AbstractWidget {
     @Override
     public boolean isFocused() {
         return false;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
     }
 }

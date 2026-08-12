@@ -15,16 +15,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EditScreen extends Screen {
+    private static final int INITIAL_DELAY_TICKS = 5; // 250ms at 20 TPS
     private final Screen parent;
+    private final Set<Integer> pressedKeys = new HashSet<>();
     private MediaWidget mediaWidget;
-
     private boolean isDragging = false;
     private int dragOffsetX = 0;
     private int dragOffsetY = 0;
-
-    private static final int INITIAL_DELAY_TICKS = 5; // 250ms at 20 TPS
-
-    private final Set<Integer> pressedKeys = new HashSet<>();
     private int keyRepeatDelay = 0;
 
     public EditScreen(Screen parent) {

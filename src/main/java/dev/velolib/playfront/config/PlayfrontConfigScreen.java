@@ -1,11 +1,7 @@
 package dev.velolib.playfront.config;
 
 import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.ColorControllerBuilder;
-import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
-import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
-import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
-import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import dev.isxander.yacl3.api.controller.*;
 import dev.velolib.playfront.PlayfrontClient;
 import dev.velolib.playfront.ui.screen.EditScreen;
 import dev.velolib.playfront.ui.widget.MediaWidget;

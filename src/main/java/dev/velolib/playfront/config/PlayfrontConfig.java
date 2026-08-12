@@ -6,7 +6,7 @@ import dev.velolib.playfront.PlayfrontClient;
 import dev.velolib.playfront.config.adapters.ColorTypeAdapter;
 import net.fabricmc.loader.api.FabricLoader;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -38,29 +38,17 @@ public class PlayfrontConfig {
 
     public boolean showCoverArt = true;
     public String fontId = "minecraft:default";
-
-    // --- Background Variants & Style Options ---
-    public enum BackgroundVariant {
-        COLOR,
-        BUTTON,
-        TOOLTIP,
-        NONE
-    }
-
     public BackgroundVariant backgroundVariant = BackgroundVariant.COLOR;
     public Color backgroundColor = new Color(0x80000000, true);
     public boolean enableBorder = true;
     public Color borderColor = new Color(0xFF444444, true);
-
     // --- Element Color & Feature Options ---
     public Color titleColor = new Color(0xFFFFFFFF, true);
     public Color artistColor = new Color(0xFFAAAAAA, true);
     public Color timeAndIconColor = new Color(0xFFAAAAAA, true);
-
     public boolean showProgressBar = true;
     public Color progressBarActiveColor = new Color(0xFF1DB954, true);
     public Color progressBarInactiveColor = new Color(0xFF444444, true);
-
     public PlayfrontConfig() {
         // Default constructor for GSON
     }
@@ -137,5 +125,13 @@ public class PlayfrontConfig {
         if (this.timeAndIconColor == null) this.timeAndIconColor = new Color(0xFFAAAAAA, true);
         if (this.progressBarActiveColor == null) this.progressBarActiveColor = new Color(0xFF1DB954, true);
         if (this.progressBarInactiveColor == null) this.progressBarInactiveColor = new Color(0xFF444444, true);
+    }
+
+    // --- Background Variants & Style Options ---
+    public enum BackgroundVariant {
+        COLOR,
+        BUTTON,
+        TOOLTIP,
+        NONE
     }
 }
