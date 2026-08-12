@@ -33,6 +33,8 @@ Make it yours. Adjust the widget position with an interactive editor, change tit
 ### Full Playback Control
 ![Playback Controls](./assets/propho3.webp)
 Bind your media controls directly to Minecraft. Play, pause, skip tracks, go to the previous song, or quickly hide the HUD entirely on the fly without ever minimizing the game or reaching for your media keys.
+> **Running out of keys on your keyboard?**  
+> If you don't want to dedicate 5 separate keybinds to media controls, I highly recommend pairing Playfront with my other mod, [**Radial**](https://modrinth.com/mod/radial). You can map all your playback commands into a radial menu to save space!
 
 ## Version Support & Backports
 
