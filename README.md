@@ -9,7 +9,7 @@
 </a>
 <img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg">
 <img alt="forge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/unsupported/forge_vector.svg">
-<img alt="windows only" height="56" src="https://raw.githubusercontent.com/velolib/playfront/assets/requires_windows.svg">
+<img alt="windows only" height="56" src="https://raw.githubusercontent.com/velolib/playfront/main/assets/requires_windows.svg">
 
 ### Your tunes, right on your screen. A lightweight, plug-and-play media overlay for Minecraft.
 
