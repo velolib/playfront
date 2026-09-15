@@ -28,13 +28,9 @@ repositories {
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
 	implementation "maven.modrinth:modmenu:${project.modmenu_version}"
 
 	compileOnly "maven.modrinth:yacl:${project.yacl_version}"
@@ -44,17 +40,54 @@ dependencies {
 	include "io.github.selemba1000:JavaMediaTransportControls:0.0.3"
 }
 
+def smtcProjectDir = file("$rootDir/PlayfrontSMTC/windows")
+def smtcPublishDir = layout.buildDirectory.dir("playfront-smtc/publish")
+
+tasks.register("publishPlayfrontSMTC", Exec) {
+	group = "build"
+	description = "Builds the Windows Playfront SMTC helper."
+
+	workingDir smtcProjectDir
+
+	commandLine(
+			"dotnet",
+			"publish",
+			"PlayfrontSMTC.csproj",
+			"-c", "Release",
+			"-o", smtcPublishDir.get().asFile.absolutePath
+	)
+
+	inputs.files(
+			fileTree(smtcProjectDir) {
+				include("**/*.cs")
+				include("**/*.csproj")
+				include("**/*.props")
+				include("**/*.targets")
+				include("**/*.json")
+				exclude("bin/**")
+				exclude("obj/**")
+			}
+	)
+
+	outputs.file(
+			smtcPublishDir.map { it.file("PlayfrontSMTC.exe") }
+	)
+}
+
 processResources {
+	dependsOn("publishPlayfrontSMTC")
+
+	from(smtcPublishDir) {
+		include("PlayfrontSMTC.exe")
+		into("assets/playfront")
+	}
+
 	def version = project.version
 	inputs.property "version", version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": version
 	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 25
 }
 
 java {

@@ -22,6 +22,11 @@ jobs:
           distribution: 'zulu'
           java-version: '25'
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.302'
+
       - name: Cache Gradle Packages
         uses: actions/cache@v5
         with:
@@ -45,6 +50,6 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           # Appends the short commit SHA to distinguish between dev builds
-          name: radial-dev-${{ github.sha }}
+          name: playfront-dev-${{ github.sha }}
           path: build/libs/*.jar
           if-no-files-found: error

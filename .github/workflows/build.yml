@@ -22,6 +22,11 @@ jobs:
           distribution: 'zulu'
           java-version: '25'
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.302'
+
       - name: Cache Gradle Packages
         uses: actions/cache@v5
         with:
@@ -44,6 +49,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
-          name: radial-${{ github.ref_name }}
+          name: playfront-${{ github.ref_name }}
           path: build/libs/*.jar
           if-no-files-found: error
